@@ -1,0 +1,6 @@
+@Premialo.Server_HostAddress = http://localhost:59558
+
+GET {{Premialo.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

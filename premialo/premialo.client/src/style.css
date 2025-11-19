@@ -1,0 +1,151 @@
+/* ===========================================
+   🌟 ESTILOS GLOBALES DE LA APLICACIÓN
+   Contraloría General - Sorteo Navideño 2025
+   =========================================== */
+
+/* 1️⃣ Reset y configuración base */
+:root {
+  --gold-1: #d4af37;
+  --gold-2: #f7e27c;
+  --gold-3: #b88900;
+  --gold-4: #ffefb0;
+  --neon-gold: 0 0 30px rgba(255,200,40,0.9),
+                0 0 60px rgba(255,200,40,0.6),
+                0 0 90px rgba(255,180,0,0.55);
+  --card-w: 600px;
+  --card-h: 350px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Open Sans", "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(180deg, #003870 0%, #001f3f 100%);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* 2️⃣ Bootstrap override básico */
+.btn-primary {
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+.btn-primary:hover {
+  background-color: #0b5ed7 !important;
+}
+
+.text-brand {
+  color: #003870 !important;
+}
+
+/* 3️⃣ Fondo general para toda la app */
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #003870, #001f3f);
+}
+
+/* 4️⃣ 🌨️ Capa de nieve global */
+.snow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.snowflake {
+  position: absolute;
+  top: -5%;
+  color: #fff;
+  animation: caer linear infinite;
+  user-select: none;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+
+
+/* iconos con poderes de no esconderse  */
+/* Fix para Edge que oculta íconos PrimeVue / FontAwesome */
+.pi,
+.pi::before,
+.pi::after,
+i[class^="pi-"],
+i[class*=" pi-"] {
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+
+@keyframes caer {
+  0% {
+    transform: translateY(-5%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+/* 5️⃣ Animaciones adicionales (ejemplo fade-in) */
+.fade-in {
+  animation: fadeIn 1.2s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 6️⃣ Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+/* ====== TOASTS ====== */
+/* Estilos personalizados para los toasts */
+/* 📱 Ajustes visuales para toasts en móviles */
+@media (max-width: 768px) {
+  .p-toast {
+    width: 90% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    top: 15px !important;
+    right: auto !important;
+  }
+
+  .p-toast-message {
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .p-toast-message .p-toast-summary {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .p-toast-message .p-toast-detail {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* 7️⃣ Ajustes responsivos */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
