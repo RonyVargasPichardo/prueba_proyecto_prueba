@@ -2,25 +2,25 @@
   <div class="admin-view container-fluid py-2 animate__animated animate__fadeIn">
 
     <!-- 🔹 HEADER -->
-    <Header :perfilUsuario="perfilUsuario" @cerrar-sesion="cerrarSesion" />
+    <!-- <Header :perfilUsuario="perfilUsuario" @cerrar-sesion="cerrarSesion" /> -->
 
     <!-- 🔹 Botón Volver -->
-    <div class="btn-volver-container">
+    <!-- <div class="btn-volver-container">
       <button class="btn-flecha" @click="volverASorteos">
         <i class="pi pi-arrow-left"></i>
       </button>
-    </div>
+    </div> -->
 
 
     <!-- 🔹 Botón Ir al Sorteo -->
-    <div class="container d-flex justify-content-end">
+    <!-- <div class="container d-flex justify-content-end">
       <button class="btn btn-lg btn-success fw-bold px-5 py-3 mb-4 pulse-wide"
         @click="$router.push(`/sortear/${$route.params.id}`)">
         Ir al Sorteo
       </button>
-    </div>
+    </div> -->
 
-    <div class="container d-flex justify-content-around">
+    <div class="container d-flex justify-content-around align-items-center">
       <!-- 🔹 Encabezado dinámico del sorteo -->
       <div class="encabezado-sorteo text-center mb-4 animate__animated animate__fadeInDown">
         <h3 class="fw-bold text-light mb-1">
@@ -34,6 +34,15 @@
           </span>
         </p>
       </div>
+
+      <!-- 🔹 Botón Ir al Sorteo -->
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-lg btn-success fw-bold px-5 py-3 mb-4 pulse-wide"
+          @click="$router.push(`/sortear/${$route.params.id}`)">
+          Ir al Sorteo
+        </button>
+      </div>
+
     </div>
 
 
@@ -50,7 +59,7 @@
         <!-- 🔹 Registro de Asistencia -->
         <div class="col-12 col-md-6 col-lg-4 container-tarjetas">
           <RegistroAsistencia :totalConcursando="totalConcursando" :totalAsistencia="totalAsistencia"
-            :sorteoId="$route.params.id" @registrar-asistencia="modalAsistencia = true"/>
+            :sorteoId="$route.params.id" @registrar-asistencia="modalAsistencia = true" />
         </div>
 
 
@@ -273,16 +282,25 @@ export default {
         this.cargarDatosSorteo();
       }
     }
-  },
-  mounted() {
-    const perfil = localStorage.getItem("perfil");
-    if (!perfil) {
-      this.$router.push("/login");
-    } else {
-      this.perfilUsuario = perfil;
-      this.cargarDatosSorteo(); // ✅ Carga el sorteo dinámico
-    }
-  },
+  }, mounted() {
+    // 🔹 Entrar directamente sin login
+    this.perfilUsuario = "Administrador";
+    this.sorteo = {
+      id: this.$route.params.id,
+      nombre: "Sorteo de Prueba Local",
+      fechaSorteo: "2025-12-20T18:00:00"
+    };
+  }
+
+  // mounted() {
+  //   const perfil = localStorage.getItem("perfil");
+  //   if (!perfil) {
+  //     this.$router.push("/login");
+  //   } else {
+  //     this.perfilUsuario = perfil;
+  //     this.cargarDatosSorteo();
+  //   }
+  // },
 };
 </script>
 

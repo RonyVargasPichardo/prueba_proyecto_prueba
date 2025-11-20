@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 
-
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: LoginView },
-   {
+
+  // 🔹 Administración de usuarios
+  {
     path: '/Listadousuarios',
     name: 'ListadoUsuarios',
     component: () => import('../views/admin/ListadoUsuarios.vue')
@@ -17,19 +18,51 @@ const routes = [
   },
   {
     path: '/ConfiguracionUsuarios/:idUsuario',
-    name: 'RegistrarUsuarios',
+    name: 'EditarUsuarios',
     component: () => import('../views/admin/RegistrarUsuarios.vue')
   },
+
+  // 🔹 Vista general de sorteos
   {
     path: '/sorteos',
     name: 'SorteoView',
     component: () => import('../views/SorteoView.vue')
   },
+
+  // 🔹 Layout principal del sorteo con sus subrutas
   {
     path: '/sorteos/:id',
-    name: 'AdminView',
-    component: () => import('../views/AdminView.vue')
+    component: () => import('@/views/SorteoLayoutView.vue'),
+    children: [
+      {
+        path: 'configuracion',
+        name: 'ConfiguracionView',
+        component: () => import('@/views/ConfiguracionView.vue'),
+      },
+      {
+        path: 'asistencia',
+        name: 'AsistenciaView',
+        component: () => import('@/views/AsistenciaView.vue'),
+      },
+      {
+        path: 'participantes',
+        name: 'ParticipantesView',
+        component: () => import('@/views/ParticipantesView.vue'),
+      },
+      {
+        path: 'premios',
+        name: 'PremiosView',
+        component: () => import('@/views/PremiosView.vue'),
+      },
+      {
+        path: 'resultados',
+        name: 'ResultadosView',
+        component: () => import('@/views/ResultadosView.vue'),
+      },
+    ]
   },
+
+  // 🔹 Otras vistas especiales
   {
     path: '/TragaColaboradores',
     name: 'TragaMoneadas',
@@ -40,7 +73,7 @@ const routes = [
     name: 'Iniciosorteo',
     component: () => import('../views/Iniciosorteo.vue')
   },
-   {
+  {
     path: '/sortear/:id',
     name: 'Sortear',
     component: () => import('../views/Sortear.vue')
