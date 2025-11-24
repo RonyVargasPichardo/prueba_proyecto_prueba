@@ -1,8 +1,13 @@
 <template>
     <aside class="sidebar-menu animate__animated animate__fadeInLeft">
         <nav class="nav flex-column">
-            <button v-for="item in menuItems" :key="item.route" class="nav-link"
-                :class="{ active: isActive(item.route) }" @click="navegar(item.route)">
+            <button
+                v-for="item in menuItems"
+                :key="item.route"
+                class="nav-link"
+                :class="{ active: isActive(item.route) }"
+                @click="navegar(item.route)"
+            >
                 <i :class="item.icon" class="me-2"></i>
                 {{ item.label }}
             </button>
@@ -13,20 +18,26 @@
 <script>
 export default {
     name: "SidebarMenu",
+
     computed: {
         currentRoute() {
             return this.$route.path;
         },
     },
+
     methods: {
         navegar(ruta) {
             const id = this.$route.params.id;
+            if (!id) return; // protección
             this.$router.push(`/sorteos/${id}/${ruta}`);
         },
+
         isActive(ruta) {
-            return this.currentRoute.includes(ruta);
+            // A prueba de errores
+            return this.$route.path.endsWith(`/${ruta}`);
         },
     },
+
     data() {
         return {
             menuItems: [
@@ -44,13 +55,19 @@ export default {
 <style scoped>
 .sidebar-menu {
     position: sticky;
+    top: 0;
+    z-index: 90;
+
+    flex: 0 0 260px;
     height: 100vh;
-    width: 230px;
+
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
+
     border-right: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 1rem 0.6rem;
-    z-index: 90;
+    border-radius: 0.8rem;
+
+    padding: 1rem 0.5rem;
 }
 
 .nav-link {

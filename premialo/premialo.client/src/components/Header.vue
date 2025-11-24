@@ -7,7 +7,7 @@
       </div>
       <!-- 🔹 Título dinámico -->
       <h1 class="mb-0 text-white fw-bold fs-4">
-        Panel de {{ perfilUsuario }}
+        {{ getTitulo() }}
       </h1>
     </div>
 
@@ -30,19 +30,53 @@
 </template>
 
 <script>
+import { useRoute } from "vue-router";
+
 export default {
   name: "AdminHeader",
+
   props: {
     perfilUsuario: {
       type: String,
       required: true,
     },
+    rol: {
+      type: String,
+      required: true, // Admin, Coordinador, Auditor, etc.
+    },
   },
+
+  setup(props) {
+    const route = useRoute();
+
+    // -------- COMPUTAMOS EL TÍTULO --------
+    const getTitulo = () => {
+      if (props.rol === "Admin") {
+        return "Panel Administrador";
+      }
+
+      // Coordinador dentro del layout del sorteo
+      if (props.rol === "Coordinador" && route.path.includes("/sorteos/")) {
+        return "Panel del Sorteo";
+      }
+
+      // Coordinador afuera
+      if (props.rol === "Coordinador") {
+        return "Panel Coordinador";
+      }
+
+      return "Panel de Usuario";
+    };
+
+    return { route, getTitulo };
+  },
+
   data() {
     return {
       menuVisible: false,
     };
   },
+
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
@@ -50,6 +84,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .admin-header {
